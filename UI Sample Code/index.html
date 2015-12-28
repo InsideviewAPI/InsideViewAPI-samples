@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>InsideView Enrich API</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1256" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="getData.js"></script>
+<style>
+.details {
+	padding: 10px;
+	margin-top: 30px;
+	word-wrap: break-word;
+}
+
+#news-details {
+	padding: 0px;
+}
+
+#loader {
+	display: none;
+}
+</style>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">InsideViewAPI</a>
+			</div>
+			<div>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Enrich</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="page-header">
+			<h1>Enrich</h1>
+		</div>
+		<div id="loader">
+			<img src="loading-animation.gif"></img>
+		</div>
+		<form role="form" id="searchForm">
+			<div class="form-group">
+				<label for="token"> AccessToken:</label> <input type="token"
+					class="form-control" id="token" placeholder="Enter Your AccessToken">
+			</div>
+            <div class="form-group">
+				<label for="email"> Email:</label> <input type="email"
+					class="form-control" id="email" placeholder="Enter email">
+			</div>
+			<button class="btn btn-default" id="enrich-submit">Submit</button>
+			<button class="btn btn-primary">
+				<span class="glyphicon glyphicon-refresh"></span> Refresh
+			</button>
+		</form>
+		<div id="headerEnrich" data-parent="#accordion"
+			href="#enrichDetailsCollapse">
+			<h3>Enrich Details</h3>
+		</div>
+		<div id="enrichDetails" class="panel-collapse collapse in">
+			<div id="company-details" class="col-md-12 details">
+				<h3>Company details</h3>
+				<table class="table table-hover">
+					<tbody>
+						<tr>
+							<td>Company Id</td>
+							<td>
+								<div id="companyId"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>City</td>
+							<td>
+								<div id="city"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Company Status</td>
+							<td>
+								<div id="companyStatus"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Company Type</td>
+							<td>
+								<div id="companyType"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Country</td>
+							<td>
+								<div id="country"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Employees</td>
+							<td>
+								<div id="employees"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Fax</td>
+							<td>
+								<div id="fax"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Financial Year End</td>
+							<td>
+								<div id="financialYearEnd"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Industry</td>
+							<td>
+								<div id="industry"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Naics</td>
+							<td>
+								<div id="naics"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Naics Description</td>
+							<td>
+								<div id="naicsDescription"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Name</td>
+							<td>
+								<div id="name"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Phone</td>
+							<td>
+								<div id="phone"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Revenue</td>
+							<td>
+								<div id="revenue"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Sic</td>
+							<td>
+								<div id="sic"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Sic Description</td>
+							<td>
+								<div id="sicDescription"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>State</td>
+							<td>
+								<div id="state"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Street</td>
+							<td>
+								<div id="street"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Sub Industry</td>
+							<td>
+								<div id="subIndustry"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Zip</td>
+							<td>
+								<div id="zip"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Revenue Currency</td>
+							<td>
+								<div id="revenueCurrency"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Industry Code</td>
+							<td>
+								<div id="industryCode"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Sub Industry Code</td>
+							<td>
+								<div id="subIndustryCode"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>British Sics</td>
+							<td>
+								<div id="britishSics"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Sources</td>
+							<td>
+								<div id="sources"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Websites</td>
+							<td>
+								<div id="websites"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Fortune Ranking</td>
+							<td>
+								<div id="fortuneRanking"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Most Recent Quarter</td>
+							<td>
+								<div id="mostRecentQuarter"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Ultimate Parent Company Id</td>
+							<td>
+								<div id="ultimateParentCompanyId"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Tickers</td>
+							<td>
+								<div id="tickers"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Parent Company Id</td>
+							<td>
+								<div id="parentCompanyId"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Equifax Id</td>
+							<td>
+								<div id="equifaxId"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Description</td>
+							<td>
+								<div id="description"></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- <div id="company-details-text"></div> -->
+			</div>
+			<div id="contact-details" class="col-md-12 details">
+				<h3>Contact details</h3>
+				<table class="table table-hover">
+					<tbody>
+						<tr>
+							<td>Contact Id</td>
+							<td>
+								<div id="contactId"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Email</td>
+							<td>
+								<div id="email"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Facebook Profile</td>
+							<td>
+								<div id="facebookProfile"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>First Name</td>
+							<td>
+								<div id="firstName"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Middle Name</td>
+							<td>
+								<div id="middleName"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Last Name</td>
+							<td>
+								<div id="lastName"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>LinkedIn Profile</td>
+							<td>
+								<div id="linkedInProfile"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Phone</td>
+							<td>
+								<div id="phone"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Titles</td>
+							<td>
+								<div id="titles"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Twitter Profile</td>
+							<td>
+								<div id="twitterProfile"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Sources</td>
+							<td>
+								<div id="sources"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Description</td>
+							<td>
+								<div id="description"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Educations</td>
+							<td>
+								<div id="educations"></div>
+							</td>
+						</tr>
+						<tr>
+							<td>Image Url</td>
+							<td>
+								<div id="imageUrl"></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- <p id="contact-details-text"></p> -->
+			</div>
+		</div>
+</body>
+<script type='text/javascript'>
+	$(document).ready(function() {
+		$('#headerEnrich').hide();
+		$('#enrichDetails').hide();
+		$('#enrich-submit').onclick=doOperation();
+	});
+</script>
+</html>
